@@ -1,0 +1,16 @@
+{
+  "name": "travelguide",
+  "version": "1.0.0",
+  "description": "Travel Guide project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "(cd tourist-guide-admin && npm install) && (cd ..) && (cd tourist-guide-apis && npm install) && (cd ..) && (cd tourist-guide-client && npm install)",
+    "start": "npm-run-all -p start:apis start:admin start:client",
+    "start:admin": "cd tourist-guide-admin && npm run start",
+    "start:apis": "cd tourist-guide-apis && npm run start",
+    "start:client": "cd tourist-guide-client && npm run start"
+  },
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
