@@ -151,7 +151,7 @@ const fastify = {
 fastify.get(
   "/users",
   {
-    preValidations:[hook1,Hook2]
+    preValidations:[Hook1,Hook2]
     preHandler: makeAuthHooks(fastify),
     schema: getUserScehma
   },
@@ -161,7 +161,7 @@ fastify.get(
 
 ## Hook Chain
 
-Each Hook does oneJob and mutate request for the nextOne in The chain
+Each Hook does one Job and mutate request for the nextone in the chain
 
 ```js
 export function makeAuthHook(fastify) {
@@ -187,6 +187,7 @@ No business Logic here, just extract what needed from the reqeust and call the s
 ```js
 function handler(fastify) {
   const makeCall = makeServiceCall(fastify);
+
   return async function (req, reply) {
     const { userId } = request.user;
     return makeCall(userId);
@@ -198,13 +199,13 @@ function handler(fastify) {
 
 Contains the actual Business Logic, It call the Repoistory layer, never AXIOS directly.
 
-## Reposiotoy Layer (data Acess layer)
+## Reposiotoy Layer (Data Acess Layer)
 
-This is the only Layer that knowns about downstream, headers, urls timeouts etc.
+This is the only layer that knows about downstream services, including their URLs, headers, timeouts, and other details.
 
 ```js
 function placeOrder(fastify) {
-  const coreService = makeCoreService(fastify.config, "someurl", {
+  const coreService = createCoreService(fastify.config, "posts/1", {
     timeout,
     retries: [
       {
@@ -216,7 +217,7 @@ function placeOrder(fastify) {
         check: shouldRetryForError2,
       },
     ],
-    baseUrl: "",
+    baseUrl: "https://jsonplaceholder.typicode.com",
   });
   const validateResponse = makeValidation(schemaName);
 
@@ -233,10 +234,10 @@ function placeOrder(fastify) {
 
 ## InfraLayer
 
-generic HTTP transport
+Generic http Transport
 
 ```js
-function makeCoreService(config, endpoint, { baseUrl, timeouts, retries }) {
+function createCoreService(config, endpoint, { baseUrl, timeouts, retries }) {
   async function get(req, { data, extrHeaders }) {}
   async function post(req, { data, extrHeaders }) {}
   return { get, post };
