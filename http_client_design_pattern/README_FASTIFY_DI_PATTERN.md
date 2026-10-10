@@ -265,6 +265,7 @@ class RequestContext {
     this.method = method;
     this.url = url;
     this.data = data;
+    // withAuthorization or withoutAuthorization, depending on whether authentication headers are required.
     this.headers = headers;
     this.startedAt = Date.now();
     this.attempt = 0;
@@ -370,6 +371,7 @@ function createCoreService(
       method,
       url,
       data,
+      // withAuthorization or withoutAuthorization, depending on whether authentication headers are required.
       headers,
     });
     context.log(logger, "request_started");
